@@ -1,9 +1,27 @@
 {
   "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@src/*": [
+        "src/*"
+      ],
+      "@entity/*": [
+        "src/entity/*"
+      ],
+      "@repository/*": [
+        "src/repository/*"
+      ],
+      "@routes/*": [
+        "src/routes/*"
+      ],
+      "@server/*": [
+        "src/server/*"
+      ]
+    },
     "sourceMap": true,
     "target": "es2017",
-    "outDir": "./dist",
-    "baseUrl": "./src",
+    "outDir": "./build",
+    // "baseUrl": "./src",
     "moduleResolution": "node",
     "esModuleInterop": true,
     "noImplicitAny": true,
