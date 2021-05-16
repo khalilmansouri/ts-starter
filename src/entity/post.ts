@@ -1,3 +1,4 @@
+import { ImportsNotUsedAsValues } from "typescript"
 
 
 export type PostQuery = {
@@ -5,12 +6,12 @@ export type PostQuery = {
   to?: Date,
 }
 
-
-export interface Post {
-  _id: string,
-  title: string,
-  text: string,
+// Post inteface
+export type Post = {
+  id: string
+  title: string
+  text: string
 }
 
-export default Post
+// export default Post
 
