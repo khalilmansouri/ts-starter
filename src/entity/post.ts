@@ -1,17 +1,17 @@
-import { ImportsNotUsedAsValues } from "typescript"
 
-
+// post Query
 export type PostQuery = {
+  title?: string,
+  text?: string,
   from?: Date,
   to?: Date,
 }
 
-// Post inteface
+// Post type
 export type Post = {
-  id: string
+  _id: string
   title: string
   text: string
 }
 
-// export default Post
 

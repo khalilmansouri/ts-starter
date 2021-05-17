@@ -1,32 +1,25 @@
-// import { Connection, Schema, Document, Model, mongo } from "mongoose";
 import { Post, PostQuery } from "@entity/post";
-// import { getModelForClass, getModelWithString } from "@typegoose/typegoose";
-import { PostRepository } from "@repository/post/baseRepo";
+import { PostRepository } from "@src/repository/post";
 import mongodb from "mongodb";
-import { mongo } from "../../dataAcess/mongodb"
 
-
-// (async () => {
-//   console.log("DB connected ... !");
-//   mongoClient = await mongodb.connect("mongodb://localhost:27017/bible", { useNewUrlParser: true, useUnifiedTopology: true })
-//   console.log(mongoClient);
-// })();
 
 
 export class mongodbRepo implements PostRepository {
-  private _db: mongodb.Db;
-  constructor() {
-    mongo.getInstance().connect((err, mongoClient) => {
-      if (err) throw err;
-      else
-        this._db = mongoClient.db()
-    })
+  private model: mongodb.Collection;
+  private connection: mongodb.MongoClient;
+  constructor(mongoClient: mongodb.MongoClient) {
+    this.connection = mongoClient;
+    this.model = mongoClient.db().collection("post")
   }
 
-  async create(post: Post): Promise<Boolean> {
+  async close(): Promise<void> {
+    return await this.connection.close()
+  }
+
+  async create(post: Omit<Post, "_id">): Promise<Boolean> {
     try {
-      await this._db.collection("post").insertOne(post);
-      return true
+      await this.model.insertOne(post);
+      return true;
     } catch (error) {
       console.error(error)
       return false;
@@ -34,14 +27,17 @@ export class mongodbRepo implements PostRepository {
   }
 
   async find(query: PostQuery): Promise<Post[]> {
-    return await this._db.collection("post").find(query).toArray();
+    return await this.model.find(query).toArray();
   }
 
-  async findById(id: string): Promise<Post> {
-    return await this._db.collection("post").findOne({ _id: id })
+  async remove() {
+    return await this.model.deleteMany({})
+  }
+
+  async findById(_id: string): Promise<Post> {
+    return await this.model.findOne({ _id })
   }
 
 }
 
-export default new mongodbRepo()
 

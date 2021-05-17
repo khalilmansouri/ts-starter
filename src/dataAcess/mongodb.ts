@@ -1,10 +1,11 @@
 
 import mongodb from "mongodb";
-
-const DB_URI = "mongodb://localhost:27017/bible"
+import { MongoMemoryServer } from "mongodb-memory-server"
 
 export class mongo {
   static _instance?: mongo;
+  private MONGO_DB_URI: string;
+  private mockServer: MongoMemoryServer;
 
   static getInstance(): mongo {
     if (!mongo._instance) {
@@ -13,11 +14,22 @@ export class mongo {
     return mongo._instance;
   }
 
-  connect(cb: mongodb.MongoCallback<mongodb.MongoClient>) {
-    mongodb.connect(DB_URI, { useNewUrlParser: true, useUnifiedTopology: true }, (err, mongodbClient) => {
-      if (err) throw cb(err, null);
-      else
-        cb(null, mongodbClient)
-    })
+  async connect() {
+    switch (process.env.NODE_ENV) {
+      case "production":
+        this.MONGO_DB_URI = process.env.MONGO_DB_URI;
+        break;
+      case "staging":
+        this.mockServer = new MongoMemoryServer();
+        this.MONGO_DB_URI = await new MongoMemoryServer().getUri("bible")
+        break;
+      case "test":
+        this.MONGO_DB_URI = await new MongoMemoryServer().getUri("bible")
+        break;
+      default:
+        break;
+    }
+
+    return await mongodb.connect(this.MONGO_DB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   }
 }

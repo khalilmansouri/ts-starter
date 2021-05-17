@@ -21,15 +21,14 @@
     "sourceMap": true,
     "target": "es2017",
     "outDir": "./build",
-    // "baseUrl": "./src",
     "moduleResolution": "node",
     "esModuleInterop": true,
     "noImplicitAny": true,
-    // "noUnusedLocals": true,
     "pretty": true,
-    // "allowUnreachableCode": false,
-    // "allowUnusedLabels": false,
-    // "noUnusedParameters": true
+    "noUnusedLocals": false,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "noUnusedParameters": false
   },
   "include": [
     "src/**/*.ts"
