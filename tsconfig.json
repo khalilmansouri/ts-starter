@@ -11,11 +11,20 @@
       "@repository/*": [
         "src/repository/*"
       ],
+      "@service/*": [
+        "src/service/*"
+      ],
       "@routes/*": [
         "src/routes/*"
       ],
       "@server/*": [
         "src/server/*"
+      ],
+      "@controller/*": [
+        "src/controller/*"
+      ],
+      "@http/*": [
+        "src/http/*"
       ]
     },
     "sourceMap": true,

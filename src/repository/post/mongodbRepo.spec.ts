@@ -1,14 +1,15 @@
-import { mongo } from "@src/dataAcess/mongodb";
 import { Post } from "@entity/post";
-import { mongodbRepo } from "@repository/post/monogdbRepo"
+import { MongodbRepo } from "@repository/post/monogdbRepo"
 
 
 describe("MongodbRepo", () => {
-  let postRepo: mongodbRepo
+  let postRepo: MongodbRepo
 
   beforeAll(async (done) => {
-    let mongoClient = await mongo.getInstance().connect()
-    postRepo = new mongodbRepo(mongoClient)
+    // let mongoClient = await mongo.getInstance().connect()
+    // postRepo = new MongodbRepo(mongoClient)
+    postRepo = new MongodbRepo()
+    await postRepo.init()
     done()
   });
 

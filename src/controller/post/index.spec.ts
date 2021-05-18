@@ -1,12 +1,16 @@
 import { Post } from "@entity/post";
 import { MongodbRepo } from "@repository/post/monogdbRepo"
 import { PostService } from "@service/post/index"
+import { HttpRequest } from "@http/index";
+import { PostController } from "@controller/post/index"
 
 
 
-describe("Post Service", () => {
+
+describe("Post Controller", () => {
   let postRepo: MongodbRepo;
   let postService: PostService;
+  let postController: PostController;
 
   beforeAll(async (done) => {
     postRepo = new MongodbRepo()
@@ -17,19 +21,23 @@ describe("Post Service", () => {
   beforeEach(async () => {
     await postRepo.remove()
   })
-  afterAll(async () => {
-    await postRepo.close()
-    // done()
+  afterAll(done => {
+    postRepo.close()
+    done()
   })
 
 
-  it("Init post service", () => {
+  it("Init post Controller", () => {
     postService = new PostService(postRepo)
-    expect(postRepo).toBeDefined()
+    postController = new PostController(postService)
+    expect(postController).toBeDefined()
   })
 
   it("Create a post", async () => {
     let p: Omit<Post, "_id"> = { title: "tt1", text: "txt1" }
+    let httpRequest: HttpRequest = {
+      body: p, query: {}, params: {}, headers: {}, method: {}, ip: {}, path: {}
+    }
     let inserted = await postService.create(p);
     expect(inserted).toBe(true);
 
@@ -37,16 +45,23 @@ describe("Post Service", () => {
 
   it("Find a posts", async () => {
     let p1: Omit<Post, "_id"> = { title: "tt1", text: "txt1" }
+    let httpRequest1: HttpRequest = {
+      body: p1, query: {}, params: {}, headers: {}, method: {}, ip: {}, path: {}
+    }
     let p2: Omit<Post, "_id"> = { title: "tt2", text: "txt2" }
-    let inserted = await postService.create(p1);
-    expect(inserted).toBe(true);
-    inserted = await postService.create(p2);
-    expect(inserted).toBe(true);
+    let httpRequest2: HttpRequest = {
+      body: p2, query: {}, params: {}, headers: {}, method: {}, ip: {}, path: {}
+    }
+    let httpResponse = await postController.create(httpRequest1);
+    expect(httpResponse.statusCode).toBe(200);
 
-    let posts: Post[] = await postService.find({})
-    expect(posts.length).toEqual(2);
-    expect(posts[0].title).toEqual(p1.title);
-    expect(posts[1].title).toEqual(p2.title);
+    httpResponse = await postController.create(httpRequest2);
+    expect(httpResponse.statusCode).toBe(200);
+
+    httpResponse = await postController.find()
+    expect(httpResponse.body.length).toEqual(2);
+    expect(httpResponse.body[0].title).toEqual(p1.title);
+    expect(httpResponse.body[1].title).toEqual(p2.title);
   })
 
   it("Find a post by _id", async () => {

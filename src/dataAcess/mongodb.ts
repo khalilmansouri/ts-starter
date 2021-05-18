@@ -15,11 +15,17 @@ export class mongo {
   }
 
   async connect() {
+
+    process.env.NODE_ENV = process.env.NODE_ENV || "development"
     switch (process.env.NODE_ENV) {
       case "production":
-        this.MONGO_DB_URI = process.env.MONGO_DB_URI;
+        this.MONGO_DB_URI = await new MongoMemoryServer().getUri("bible")//process.env.MONGO_DB_URI;
         break;
       case "staging":
+        this.mockServer = new MongoMemoryServer();
+        this.MONGO_DB_URI = await new MongoMemoryServer().getUri("bible")
+        break;
+      case "development":
         this.mockServer = new MongoMemoryServer();
         this.MONGO_DB_URI = await new MongoMemoryServer().getUri("bible")
         break;

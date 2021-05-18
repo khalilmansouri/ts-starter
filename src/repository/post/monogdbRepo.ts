@@ -1,15 +1,27 @@
 import { Post, PostQuery } from "@entity/post";
 import { PostRepository } from "@src/repository/post";
 import mongodb from "mongodb";
+import { mongo } from "@src/dataAcess/mongodb"
 
 
 
-export class mongodbRepo implements PostRepository {
+export class MongodbRepo implements PostRepository {
+
   private model: mongodb.Collection;
   private connection: mongodb.MongoClient;
-  constructor(mongoClient: mongodb.MongoClient) {
+
+  // constructor(mongoClient: mongodb.MongoClient) {
+  //   this.connection = mongoClient;
+  //   this.model = mongoClient.db().collection("post")
+  // }
+
+  constructor() { }
+
+  async init() {
+    let mongoClient = await mongo.getInstance().connect()
     this.connection = mongoClient;
     this.model = mongoClient.db().collection("post")
+    console.log("DB Conntected ...")
   }
 
   async close(): Promise<void> {
