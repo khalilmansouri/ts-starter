@@ -20,7 +20,7 @@ import { Router, HttpRequest, HttpResponse } from "@http/index"
 
 // app.listen(5000, () => { console.log("Express is UP") });
 
-export class ExpressAPP {//implements Router
+export class ExpressAPP implements Router {
 
   private application: express.Application
   private router: express.Router
@@ -74,7 +74,7 @@ export class ExpressAPP {//implements Router
   POST(path: string, f: (httpRequest: HttpRequest) => Promise<HttpResponse>) {
     this.application.post(path, this.handler(f));
   };
-  // PUT(path: string, f: (req: Req, res: Res) => void) {
-  //   this.router.get(path, f);
-  // };
+  PUT(path: string, f: (httpRequest: HttpRequest) => Promise<HttpResponse>) {
+    this.application.put(path, this.handler(f));
+  };
 }

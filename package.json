@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon --watch './**/*.ts' --exec ts-node -r tsconfig-paths/register ./src/index.ts",
-    "prod": "node -r ts-node/register/transpile-only -r tsconfig-paths/register build/server.js",
+    "prod": "node -r ts-node/register/transpile-only -r tsconfig-paths/register ./src/server.js",
     "test": "jest --watch"
   },
   "author": "",

@@ -19,8 +19,8 @@ export type HttpResponse = {
 
 
 export interface Router {
-  GET(path: string, f: (req: HttpRequest, res: HttpResponse) => void): void,
-  POST(path: string, f: (req: HttpRequest, res: HttpResponse) => void): void,
-  PUT(path: string, f: (req: HttpRequest, res: HttpResponse) => void): void,
+  GET(path: string, f: (req: HttpRequest) => Promise<HttpResponse>): void,
+  POST(path: string, f: (req: HttpRequest) => Promise<HttpResponse>): void,
+  PUT(path: string, f: (req: HttpRequest) => Promise<HttpResponse>): void,
 }
 

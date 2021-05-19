@@ -22,7 +22,6 @@ let postService: PostService;
 
   let http = new ExpressAPP()
   http.GET("/", postController.find)
-  http.POST("/", postController.create)
   http.listen(5000)
 })()
 

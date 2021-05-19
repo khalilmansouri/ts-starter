@@ -2,20 +2,6 @@ import { Post } from "@entity/post";
 import { PostService } from "@service/post";
 import { HttpResponse, HttpRequest } from "@http/index"
 
-type Req = {
-  body?: any
-  header?: any
-  params?: any
-}
-
-type Res = {
-  body: {
-    status: number,
-    payload?: any
-  }
-  error?: any
-}
-
 export class PostController {
   // public postService: PostService;
 
