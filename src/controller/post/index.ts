@@ -1,9 +1,10 @@
 import { Post } from "@entity/post";
 import { PostService } from "@service/post";
 import { HttpResponse, HttpRequest } from "@http/index"
+import { Service } from "typedi";
 
+@Service()
 export class PostController {
-  // public postService: PostService;
 
   constructor(private readonly postService: PostService) { }
 
@@ -26,6 +27,17 @@ export class PostController {
 
   async find() {
     let ret = await this.postService.find({})
+    let httpResponse: HttpResponse = {
+      body: ret,
+      statusCode: 200,
+      headers: {}
+    }
+    return httpResponse;
+  }
+
+  async findById(httpRequest: HttpRequest) {
+    const id = httpRequest.body._id
+    let ret = await this.postService.findById(id)
     let httpResponse: HttpResponse = {
       body: ret,
       statusCode: 200,

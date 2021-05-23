@@ -1,35 +1,31 @@
+import "reflect-metadata"
 import { Post } from "@entity/post";
 import { MongodbRepo } from "@repository/post/monogdbRepo"
-import { PostService } from "@service/post/index"
 import { HttpRequest } from "@http/index";
 import { PostController } from "@controller/post/index"
+import { Container } from "typedi";
 
 
 
 
 describe("Post Controller", () => {
   let postRepo: MongodbRepo;
-  let postService: PostService;
   let postController: PostController;
 
-  beforeAll(async (done) => {
-    postRepo = new MongodbRepo()
-    await postRepo.init()
-    done()
+  beforeAll(async () => {
+    await Container.get(MongodbRepo).init()
   });
 
   beforeEach(async () => {
-    await postRepo.remove()
+    await Container.get(MongodbRepo).remove()
   })
-  afterAll(done => {
-    postRepo.close()
-    done()
+  afterAll(async () => {
+    await Container.get(MongodbRepo).close()
   })
 
 
   it("Init post Controller", () => {
-    postService = new PostService(postRepo)
-    postController = new PostController(postService)
+    postController = Container.get(PostController)
     expect(postController).toBeDefined()
   })
 
@@ -38,8 +34,8 @@ describe("Post Controller", () => {
     let httpRequest: HttpRequest = {
       body: p, query: {}, params: {}, headers: {}, method: {}, ip: {}, path: {}
     }
-    let inserted = await postService.create(p);
-    expect(inserted).toBe(true);
+    let httpResponse = await postController.create(httpRequest);
+    expect(httpResponse.statusCode).toBe(200);
 
   })
 
@@ -66,15 +62,23 @@ describe("Post Controller", () => {
 
   it("Find a post by _id", async () => {
     let p: Omit<Post, "_id"> = { title: "tt1", text: "txt1" }
-    let inserted = await postService.create(p);
-    expect(inserted).toBe(true);
+    let httpRequest: HttpRequest = {
+      body: p, query: {}, params: {}, headers: {}, method: {}, ip: {}, path: {}
+    }
 
-    let posts: Post[] = await postService.find({})
+    await postController.create(httpRequest);
+
+    let httpResponse = await postController.find()
+
+    let posts: Post[] = httpResponse.body
     expect(posts.length).toEqual(1);
     expect(posts[0].title).toEqual(p.title);
 
-    let post: Post = await postService.findById(posts[0]._id)
-    expect(post.title).toEqual(p.title);
+    httpRequest = {
+      body: { _id: posts[0]._id }, query: {}, params: {}, headers: {}, method: {}, ip: {}, path: {}
+    }
+    httpResponse = await postController.findById(httpRequest)
+    expect(httpResponse.body.title).toEqual(p.title);
   })
 
 })

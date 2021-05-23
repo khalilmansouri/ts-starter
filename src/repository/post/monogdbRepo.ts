@@ -1,19 +1,16 @@
 import { Post, PostQuery } from "@entity/post";
-import { PostRepository } from "@src/repository/post";
+import { IPostRepository } from "@src/repository/post";
 import mongodb from "mongodb";
+import { Service } from "typedi"
 import { mongo } from "@src/dataAcess/mongodb"
 
 
-
-export class MongodbRepo implements PostRepository {
+@Service()
+export class MongodbRepo implements IPostRepository {
 
   private model: mongodb.Collection;
   private connection: mongodb.MongoClient;
 
-  // constructor(mongoClient: mongodb.MongoClient) {
-  //   this.connection = mongoClient;
-  //   this.model = mongoClient.db().collection("post")
-  // }
 
   constructor() { }
 
@@ -21,7 +18,7 @@ export class MongodbRepo implements PostRepository {
     let mongoClient = await mongo.getInstance().connect()
     this.connection = mongoClient;
     this.model = mongoClient.db().collection("post")
-    console.log("DB Conntected ...")
+    // console.log("DB Conntected ...")
   }
 
   async close(): Promise<void> {

@@ -1,28 +1,22 @@
+import "reflect-metadata"
+import { Container } from "typedi";
 import { ExpressAPP } from "@http/express"
 import { MongodbRepo } from "@repository/post/monogdbRepo"
 import { PostController } from "@controller/post"
-import { PostService } from "@service/post"
-
-console.clear()
 
 
-let postController: PostController;
-let postService: PostService;
 
 
 (async () => {
-  let postRepo = new MongodbRepo();
-  await postRepo.init()
 
-  postService = new PostService(postRepo);
-  postController = new PostController(new PostService(new MongodbRepo()))
+  // Init the database repository
+  await Container.get(MongodbRepo).init()
 
-  await new Promise(r => setTimeout(r, 2000))
+  // init Post controller
+  const postController = Container.get(PostController)
 
 
   let http = new ExpressAPP()
   http.GET("/", postController.find)
   http.listen(5000)
 })()
-
-

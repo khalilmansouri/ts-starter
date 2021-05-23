@@ -1,38 +1,44 @@
+import "reflect-metadata"
 import { Post } from "@entity/post";
 import { MongodbRepo } from "@repository/post/monogdbRepo"
 import { PostService } from "@service/post/index"
+import { Container, Service } from "typedi";
+import { mock } from "jest-mock-extended"
+
 
 
 
 describe("Post Service", () => {
-  let postRepo: MongodbRepo;
+  // let postRepo: MongodbRepo;
   let postService: PostService;
 
-  beforeAll(async (done) => {
-    postRepo = new MongodbRepo()
-    await postRepo.init()
-    done()
+  beforeAll(async () => {
+    await Container.get(MongodbRepo).init()
   });
 
   beforeEach(async () => {
-    await postRepo.remove()
+    await Container.get(MongodbRepo).remove()
   })
   afterAll(async () => {
-    await postRepo.close()
-    // done()
+    await Container.get(MongodbRepo).close()
   })
 
 
   it("Init post service", () => {
-    postService = new PostService(postRepo)
-    expect(postRepo).toBeDefined()
+    // const mockedPostRepo = mock<MongodbRepo>();
+    // mockedPostRepo.create.mockResolvedValue(true);
+    // postService = new PostService(mockedPostRepo)
+    postService = Container.get(PostService)
+    expect(postService).toBeDefined()
   })
 
   it("Create a post", async () => {
+    // const mockedPostRepo = mock<MongodbRepo>();
+    // mockedPostRepo.create.mockResolvedValue(true);
+    postService = Container.get(PostService)
     let p: Omit<Post, "_id"> = { title: "tt1", text: "txt1" }
     let inserted = await postService.create(p);
     expect(inserted).toBe(true);
-
   })
 
   it("Find a posts", async () => {
