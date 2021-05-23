@@ -2,7 +2,7 @@ import { Post, PostQuery } from "@entity/post";
 import { IPostRepository } from "@src/repository/post";
 import mongodb from "mongodb";
 import { Service } from "typedi"
-import { mongo } from "@src/dataAcess/mongodb"
+import { mongo } from "@src/dataAccess/mongodb"
 
 
 @Service()

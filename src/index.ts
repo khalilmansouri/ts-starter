@@ -1,6 +1,6 @@
 import "reflect-metadata"
 import { Container } from "typedi";
-import { ExpressAPP } from "@http/express"
+import { ExpressServer } from "@http/express"
 import { MongodbRepo } from "@repository/post/monogdbRepo"
 import { PostController } from "@controller/post"
 
@@ -16,7 +16,7 @@ import { PostController } from "@controller/post"
   const postController = Container.get(PostController)
 
 
-  let http = new ExpressAPP()
+  let http = new ExpressServer()
   http.GET("/", postController.find)
   http.listen(5000)
 })()

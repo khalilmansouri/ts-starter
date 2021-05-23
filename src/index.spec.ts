@@ -10,7 +10,6 @@ describe("IoC test", () => {
 
   it("Shoud load post service", async () => {
     const postService = Container.get(PostService)
-    console.log(postService)
     expect(postService).toBeDefined()
     // console.log(await postService.find({}))
     // expect(postService).toBeInstanceOf(PostService)
