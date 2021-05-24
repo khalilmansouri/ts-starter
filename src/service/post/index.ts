@@ -1,7 +1,6 @@
-import { IPostRepository } from "@repository/post";
 import { MongodbRepo } from "@repository/post/monogdbRepo";
 import { Post, PostQuery } from "@entity/post"
-import { Container, Service, Inject } from "typedi";
+import { Service } from "typedi";
 @Service()
 export class PostService {
 
@@ -15,8 +14,12 @@ export class PostService {
     return await this.postRepo.find(q)
   }
 
-  async findById(_id: string) {
-    return await this.postRepo.findById(_id)
+  async findById(id: string) {
+    return await this.postRepo.findById(id)
+  }
+
+  async delete() {
+    return await this.postRepo.remove()
   }
 
 }

@@ -1,49 +1,33 @@
-import { Post } from "@entity/post";
+import { Post as PostEntity } from "@entity/post";
 import { PostService } from "@service/post";
-import { HttpResponse, HttpRequest } from "@http/index"
 import { Service } from "typedi";
+import { JsonController, Body, Get, Post, QueryParam, Param, Delete } from "routing-controllers";
 
+@JsonController()
 @Service()
 export class PostController {
 
   constructor(private readonly postService: PostService) { }
 
-  async create(httpRequest: HttpRequest): Promise<HttpResponse> {
-    let post = httpRequest.body as Omit<Post, "_id">
+  @Post("/")
+  async create(@Body() post: PostEntity) {
     let inserted = await this.postService.create(post)
-    let statusCode: number;
-    if (inserted) {
-      statusCode = 200
-    } else {
-      statusCode = 400
-    }
-    let httpResponse: HttpResponse = {
-      headers: {},
-      statusCode: 200,
-      body: {}
-    }
-    return httpResponse
+    return inserted
   }
 
-  async find() {
-    let ret = await this.postService.find({})
-    let httpResponse: HttpResponse = {
-      body: ret,
-      statusCode: 200,
-      headers: {}
-    }
-    return httpResponse;
+  @Get("/")
+  async find(@QueryParam("limit") limit: any) {
+    return await this.postService.find({})
   }
 
-  async findById(httpRequest: HttpRequest) {
-    const id = httpRequest.body._id
-    let ret = await this.postService.findById(id)
-    let httpResponse: HttpResponse = {
-      body: ret,
-      statusCode: 200,
-      headers: {}
-    }
-    return httpResponse;
+  @Get("/:id")
+  async findById(@Param("id") id: string) {
+    return await this.postService.findById(id)
+  }
 
+  @Delete("/")
+  async deleteAll() {
+    let ret = await this.postService.delete()
+    return ret;
   }
 }

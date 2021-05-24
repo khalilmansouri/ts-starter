@@ -1,6 +1,6 @@
 import { Post, PostQuery } from "@entity/post";
 import { IPostRepository } from "@src/repository/post";
-import mongodb from "mongodb";
+import mongodb, { ObjectId } from "mongodb";
 import { Service } from "typedi"
 import { mongo } from "@src/dataAccess/mongodb"
 
@@ -36,15 +36,16 @@ export class MongodbRepo implements IPostRepository {
   }
 
   async find(query: PostQuery): Promise<Post[]> {
-    return await this.model.find(query).toArray();
+    let posts = await this.model.find(query).toArray();
+    return posts.map(post => { return { ...post, _id: post._id.toString() } })
   }
 
   async remove() {
     return await this.model.deleteMany({})
   }
 
-  async findById(_id: string): Promise<Post> {
-    return await this.model.findOne({ _id })
+  async findById(id: string): Promise<Post> {
+    return await this.model.findOne({ _id: new ObjectId(id) })
   }
 
 }
