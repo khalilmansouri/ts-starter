@@ -18,7 +18,6 @@ export class MongodbRepo implements IPostRepository {
     let mongoClient = await mongo.getInstance().connect()
     this.connection = mongoClient;
     this.model = mongoClient.db().collection("post")
-    // console.log("DB Conntected ...")
   }
 
   async close(): Promise<void> {
@@ -45,7 +44,9 @@ export class MongodbRepo implements IPostRepository {
   }
 
   async findById(id: string): Promise<Post> {
-    return await this.model.findOne({ _id: new ObjectId(id) })
+    let post = await this.model.findOne({ _id: new ObjectId(id) })
+    post._id = post._id.toString()
+    return post
   }
 
 }

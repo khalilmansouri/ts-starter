@@ -5,8 +5,6 @@ import { MongodbRepo } from "@repository/post/monogdbRepo"
 import { PostController } from "@controller/post"
 
 
-
-
 (async () => {
 
   // Init the database repository

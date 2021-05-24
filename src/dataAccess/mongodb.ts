@@ -26,8 +26,7 @@ export class mongo {
         this.MONGO_DB_URI = await new MongoMemoryServer().getUri("bible")
         break;
       case "development":
-        this.mockServer = new MongoMemoryServer();
-        this.MONGO_DB_URI = await new MongoMemoryServer().getUri("bible")
+        this.MONGO_DB_URI = "mongodb://localhost:27017/"
         break;
       case "test":
         this.MONGO_DB_URI = await new MongoMemoryServer().getUri("bible")
