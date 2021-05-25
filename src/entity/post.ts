@@ -10,11 +10,19 @@ export type PostQuery = {
 
 // Post type
 export class Post {
+
   _id: string
+
   @MaxLength(10)
   title: string
+
   @MinLength(10)
   text: string
+
+  constructor({ title, text }: { title: string, text: string }) {
+    this.title = text;
+    this.title = title;
+  }
 }
 
 

@@ -1,11 +1,11 @@
 import { Post, PostQuery } from "@entity/post";
-import { MongodbRepo } from "@repository/post/monogdbRepo"
 
 export interface IPostRepository {
-  // init(): void,
+  init(): void,
   create(post: Omit<Post, "_id">): Promise<Boolean>,
   find(query: PostQuery): Promise<Post[]>,
   findById(id: string): Promise<Post>,
+  remove(): Promise<any>,
 }
 
-export const PostRepository = MongodbRepo
+export { MongodbRepo as PostRepository } from "@repository/post/monogdbRepo"

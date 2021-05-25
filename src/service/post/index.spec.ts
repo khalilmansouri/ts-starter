@@ -36,14 +36,14 @@ describe("Post Service", () => {
     // const mockedPostRepo = mock<MongodbRepo>();
     // mockedPostRepo.create.mockResolvedValue(true);
     postService = Container.get(PostService)
-    let p: Omit<Post, "_id"> = { title: "tt1", text: "txt1" }
+    let p = new Post({ title: "tt1", text: "txt1" })
     let inserted = await postService.create(p);
     expect(inserted).toBe(true);
   })
 
   it("Find a posts", async () => {
-    let p1: Omit<Post, "_id"> = { title: "tt1", text: "txt1" }
-    let p2: Omit<Post, "_id"> = { title: "tt2", text: "txt2" }
+    let p1 = new Post({ title: "tt1", text: "txt1" })
+    let p2 = new Post({ title: "tt2", text: "txt2" })
     let inserted = await postService.create(p1);
     expect(inserted).toBe(true);
     inserted = await postService.create(p2);
@@ -56,7 +56,7 @@ describe("Post Service", () => {
   })
 
   it("Find a post by _id", async () => {
-    let p: Omit<Post, "_id"> = { title: "tt1", text: "txt1" }
+    let p = new Post({ title: "tt1", text: "txt1" })
     let inserted = await postService.create(p);
     expect(inserted).toBe(true);
 

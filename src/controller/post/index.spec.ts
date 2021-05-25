@@ -8,7 +8,7 @@ import { Container } from "typedi";
 
 
 describe("Post Controller", () => {
-  let postRepo: MongodbRepo;
+
   let postController: PostController;
 
   beforeAll(async () => {
@@ -29,15 +29,15 @@ describe("Post Controller", () => {
   })
 
   it("Create a post", async () => {
-    let p: Omit<Post, "_id"> = { title: "tt1", text: "txt1" }
+    let p = new Post({ title: "tt1", text: "txt1" })
     let inserted = await postController.create(p);
     expect(inserted).toBe(true);
 
   })
 
   it("Find a posts", async () => {
-    let p1: Omit<Post, "_id"> = { title: "tt1", text: "txt1" }
-    let p2: Omit<Post, "_id"> = { title: "tt2", text: "txt2" }
+    let p1 = new Post({ title: "tt1", text: "txt1" })
+    let p2 = new Post({ title: "tt2", text: "txt2" })
     let inserted = await postController.create(p1);
     expect(inserted).toBe(true);
 
@@ -51,7 +51,7 @@ describe("Post Controller", () => {
   })
 
   it("Find a post by _id", async () => {
-    let p: Omit<Post, "_id"> = { title: "tt1", text: "txt1" }
+    let p = new Post({ title: "tt1", text: "txt1" })
 
     await postController.create(p);
 

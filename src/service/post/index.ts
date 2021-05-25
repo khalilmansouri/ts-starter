@@ -1,12 +1,12 @@
-import { MongodbRepo } from "@repository/post/monogdbRepo";
+import { PostRepository } from "@repository/post/";
 import { Post, PostQuery } from "@entity/post"
 import { Service } from "typedi";
 @Service()
 export class PostService {
 
-  constructor(private readonly postRepo: MongodbRepo) { }
+  constructor(private readonly postRepo: PostRepository) { }
 
-  async create(post: Omit<Post, "_id">): Promise<Boolean> {
+  async create(post: Post): Promise<Boolean> {
     return await this.postRepo.create(post);
   }
 

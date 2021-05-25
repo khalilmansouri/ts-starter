@@ -1,28 +1,28 @@
 import "reflect-metadata"
 import Container from "typedi";
 import { Post } from "@entity/post";
-import { MongodbRepo } from "@repository/post/monogdbRepo"
+import { PostRepository } from "@repository/post"
 
 
 
-describe("MongodbRepo", () => {
-  let postRepo: MongodbRepo
+describe("PostRepository", () => {
+  let postRepo: PostRepository
 
   beforeAll(async () => {
-    await Container.get(MongodbRepo).init()
+    await Container.get(PostRepository).init()
   });
 
   beforeEach(async () => {
-    await Container.get(MongodbRepo).remove()
+    await Container.get(PostRepository).remove()
   })
   afterAll(async () => {
-    await Container.get(MongodbRepo).close()
+    await Container.get(PostRepository).close()
   })
 
 
 
   it("Insert a post", async () => {
-    postRepo = Container.get(MongodbRepo)
+    postRepo = Container.get(PostRepository)
     let p: Omit<Post, "_id"> = { title: "tt1", text: "txt1" }
     let inserted = await postRepo.create(p);
     expect(inserted).toBe(true);

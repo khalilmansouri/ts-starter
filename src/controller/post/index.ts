@@ -10,9 +10,8 @@ export class PostController {
   constructor(private readonly postService: PostService) { }
 
   @Post("/")
-  async create(@Body() post: Omit<PostEntity, "_id">) {
-    let inserted = await this.postService.create(post)
-    return inserted
+  async create(@Body() post: PostEntity) {
+    return await this.postService.create(post)
   }
 
   @Get("/")
