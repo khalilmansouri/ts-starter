@@ -1,3 +1,4 @@
+import { MaxLength, MinLength } from "class-validator"
 
 // post Query
 export type PostQuery = {
@@ -8,9 +9,11 @@ export type PostQuery = {
 }
 
 // Post type
-export type Post = {
+export class Post {
   _id: string
+  @MaxLength(10)
   title: string
+  @MinLength(10)
   text: string
 }
 
