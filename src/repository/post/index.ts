@@ -8,4 +8,4 @@ export interface IPostRepository {
   remove(): Promise<any>,
 }
 
-export { MongodbRepo as PostRepository } from "@repository/post/monogdbRepo"
+export { MongoRepo as PostRepository } from "@src/repository/post/monogRepo"

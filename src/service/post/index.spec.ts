@@ -1,6 +1,6 @@
 import "reflect-metadata"
 import { Post } from "@entity/post";
-import { MongodbRepo } from "@repository/post/monogdbRepo"
+import { PostRepository } from "@src/repository/post"
 import { PostService } from "@service/post/index"
 import { Container, Service } from "typedi";
 import { mock } from "jest-mock-extended"
@@ -9,23 +9,23 @@ import { mock } from "jest-mock-extended"
 
 
 describe("Post Service", () => {
-  // let postRepo: MongodbRepo;
+  // let postRepo: PostRepository;
   let postService: PostService;
 
   beforeAll(async () => {
-    await Container.get(MongodbRepo).init()
+    await Container.get(PostRepository).init()
   });
 
   beforeEach(async () => {
-    await Container.get(MongodbRepo).remove()
+    await Container.get(PostRepository).remove()
   })
   afterAll(async () => {
-    await Container.get(MongodbRepo).close()
+    await Container.get(PostRepository).close()
   })
 
 
   it("Init post service", () => {
-    // const mockedPostRepo = mock<MongodbRepo>();
+    // const mockedPostRepo = mock<PostRepository>();
     // mockedPostRepo.create.mockResolvedValue(true);
     // postService = new PostService(mockedPostRepo)
     postService = Container.get(PostService)
@@ -33,7 +33,7 @@ describe("Post Service", () => {
   })
 
   it("Create a post", async () => {
-    // const mockedPostRepo = mock<MongodbRepo>();
+    // const mockedPostRepo = mock<PostRepository>();
     // mockedPostRepo.create.mockResolvedValue(true);
     postService = Container.get(PostService)
     let p = new Post({ title: "tt1", text: "txt1" })

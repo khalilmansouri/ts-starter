@@ -1,6 +1,6 @@
 import "reflect-metadata"
 import { Post } from "@entity/post";
-import { MongodbRepo } from "@repository/post/monogdbRepo"
+import { PostRepository } from "@src/repository/post"
 import { PostController } from "@controller/post/index"
 import { Container } from "typedi";
 
@@ -12,14 +12,14 @@ describe("Post Controller", () => {
   let postController: PostController;
 
   beforeAll(async () => {
-    await Container.get(MongodbRepo).init()
+    await Container.get(PostRepository).init()
   });
 
   beforeEach(async () => {
-    await Container.get(MongodbRepo).remove()
+    await Container.get(PostRepository).remove()
   })
   afterAll(async () => {
-    await Container.get(MongodbRepo).close()
+    await Container.get(PostRepository).close()
   })
 
 

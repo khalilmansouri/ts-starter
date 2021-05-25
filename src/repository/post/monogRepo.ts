@@ -6,7 +6,7 @@ import { mongo } from "@src/dataAccess/mongodb"
 
 
 @Service()
-export class MongodbRepo implements IPostRepository {
+export class MongoRepo implements IPostRepository {
 
   private model: mongodb.Collection;
   private connection: mongodb.MongoClient;
