@@ -2,6 +2,7 @@ import "reflect-metadata"
 import Container from "typedi";
 import { Post } from "@entity/post";
 import { PostRepository } from "@repository/post"
+import { Mongo } from "@src/dataAccess/mongodb"
 
 
 
@@ -9,14 +10,14 @@ describe("PostRepository", () => {
   let postRepo: PostRepository
 
   beforeAll(async () => {
-    await Container.get(PostRepository).init()
+    await Container.get(Mongo).connect()
   });
 
   beforeEach(async () => {
     await Container.get(PostRepository).remove()
   })
   afterAll(async () => {
-    await Container.get(PostRepository).close()
+    await Container.get(Mongo).disconnect()
   })
 
 

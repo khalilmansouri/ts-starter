@@ -4,6 +4,7 @@ import { PostRepository } from "@src/repository/post"
 import { PostService } from "@service/post/index"
 import { Container, Service } from "typedi";
 import { mock } from "jest-mock-extended"
+import { Mongo } from "@src/dataAccess/mongodb";
 
 
 
@@ -13,7 +14,7 @@ describe("Post Service", () => {
   let postService: PostService;
 
   beforeAll(async () => {
-    await Container.get(PostRepository).init()
+    await Container.get(Mongo).connect()
   });
 
   beforeEach(async () => {

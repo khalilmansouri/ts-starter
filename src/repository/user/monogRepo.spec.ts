@@ -2,20 +2,21 @@ import "reflect-metadata"
 import Container from "typedi";
 import { User } from "@entity/user";
 import { UserRepository } from "@repository/user"
+import { Mongo } from "@src/dataAccess/mongodb"
 
 
 describe("UserRepository", () => {
   let userRepo: UserRepository
 
   beforeAll(async () => {
-    await Container.get(UserRepository).init()
+    await Container.get(Mongo).connect()
   });
 
   beforeEach(async () => {
     await Container.get(UserRepository).remove()
   })
   afterAll(async () => {
-    await Container.get(UserRepository).close()
+    await Container.get(Mongo).disconnect()
   })
 
 

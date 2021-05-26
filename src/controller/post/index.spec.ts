@@ -1,8 +1,11 @@
 import "reflect-metadata"
+import { Container } from "typedi";
+
 import { Post } from "@entity/post";
 import { PostRepository } from "@src/repository/post"
 import { PostController } from "@controller/post/index"
-import { Container } from "typedi";
+import { Mongo } from "@src/dataAccess/mongodb";
+
 
 
 
@@ -12,7 +15,7 @@ describe("Post Controller", () => {
   let postController: PostController;
 
   beforeAll(async () => {
-    await Container.get(PostRepository).init()
+    await Container.get(Mongo).connect()
   });
 
   beforeEach(async () => {

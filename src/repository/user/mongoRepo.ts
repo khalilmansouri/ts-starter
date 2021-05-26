@@ -1,4 +1,4 @@
-import { mongo } from "@src/dataAccess/mongodb";
+import { Mongo } from "@src/dataAccess/mongodb";
 import mongodb from "mongodb"
 import User from "@src/entity/user";
 import { IUserRepository } from "./index"
@@ -10,12 +10,12 @@ export class MongoRepo implements IUserRepository {
   private model: mongodb.Collection;
   private connection: mongodb.MongoClient;
 
-
-  async init() {
-    let mongoClient = await mongo.getInstance().connect()
+  constructor(mongo: Mongo) {
+    let mongoClient = mongo.getMongoClient()
     this.connection = mongoClient;
     this.model = mongoClient.db().collection("user")
   }
+
 
   async create(user: Omit<User, "_id">) {
     await this.model.insertOne(user)

@@ -1,17 +1,16 @@
 
-import mongodb from "mongodb";
+import mongodb, { MongoClient } from "mongodb";
 import { MongoMemoryServer } from "mongodb-memory-server"
+import { Service } from "typedi";
 
-export class mongo {
-  static _instance?: mongo;
+@Service()
+export class Mongo {
+
   private MONGO_DB_URI: string;
-  private mockServer: MongoMemoryServer;
+  protected mongoClient: MongoClient
 
-  static getInstance(): mongo {
-    if (!mongo._instance) {
-      mongo._instance = new mongo();
-    }
-    return mongo._instance;
+  getMongoClient() {
+    return this.mongoClient
   }
 
   async connect() {
@@ -22,7 +21,6 @@ export class mongo {
         this.MONGO_DB_URI = await new MongoMemoryServer().getUri("bible")//process.env.MONGO_DB_URI;
         break;
       case "staging":
-        this.mockServer = new MongoMemoryServer();
         this.MONGO_DB_URI = await new MongoMemoryServer().getUri("bible")
         break;
       case "development":
@@ -35,6 +33,10 @@ export class mongo {
         break;
     }
 
-    return await mongodb.connect(this.MONGO_DB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+    this.mongoClient = await mongodb.connect(this.MONGO_DB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+  }
+
+  async disconnect() {
+    await this.mongoClient.connect()
   }
 }
