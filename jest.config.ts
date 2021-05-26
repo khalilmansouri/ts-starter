@@ -1,7 +1,8 @@
-const tsconfig = require("./tsconfig.json")
+import tsconfig from "./tsconfig.json"
+import type { Config } from "@jest/types"
 const moduleNameMapper = require("tsconfig-paths-jest")(tsconfig)
 
-module.exports = {
+const config: Config.InitialOptions = {
   preset: 'ts-jest',
   testEnvironment: 'node',
   moduleDirectories: ['node_modules', 'src'],
@@ -14,5 +15,8 @@ module.exports = {
   // },
   reporters: ["default"],
   setupFilesAfterEnv: ["jest-extended"],
+
   moduleNameMapper,
-};
+}
+
+export default config;

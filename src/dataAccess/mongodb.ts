@@ -37,6 +37,17 @@ export class Mongo {
   }
 
   async disconnect() {
-    await this.mongoClient.connect()
+    await this.mongoClient.close()
+    // await new Promise((resolve, reject) => {
+    //   this.mongoClient.close((error) => {
+    //     if (!error) {
+    //       resolve("Disconnceted")
+    //     }
+    //     else {
+    //       console.log(error)
+    //       reject(error)
+    //     }
+    //   })
+    // })
   }
 }
