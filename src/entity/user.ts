@@ -1,20 +1,27 @@
-import { IsDate, IsEmail } from "class-validator"
+import { IsDate, IsEmail, IsString } from "class-validator"
 
 
 export class User {
   _id: string
-  fistName: string
+
+  @IsString()
+  firstName: string
+
+  @IsString()
   lastName: string
 
   @IsEmail()
   email: string
+
   password: string
 
   @IsDate()
   createdAt: Date
 
-  constructor({ email }: { email: string }) {
-    this.email = email
+  constructor({ email, firstName, lastName }: { email?: string, firstName?: string, lastName?: string }) {
+    this.email = email;
+    this.firstName = firstName;
+    this.lastName = lastName
   }
 
 }
