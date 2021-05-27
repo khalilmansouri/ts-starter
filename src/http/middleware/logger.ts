@@ -68,13 +68,13 @@ export class Logger implements ExpressMiddlewareInterface {
   constructor(private loggerService: LoggerService) { }
 
 
-  use(req: Request, res: Response, next: NextFunction) {
+  use(request: Request, response: Response, next: NextFunction) {
     let logLevel: LogLevel = "info";
-    const { statusCode } = req
+    const { statusCode } = response
     if (statusCode < 100 && statusCode >= 400) logLevel = "error";
 
     this.loggerService.log(logLevel, {
-      message: `${req.ip} ${res.statusCode} ${req.method} ${req.url}`,
+      message: `${request.ip} ${response.statusCode} ${request.method} ${request.url}`,
     })
     next()
   }
