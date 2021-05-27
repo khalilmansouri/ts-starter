@@ -1,8 +1,7 @@
 import { Post as PostEntity } from "@entity/post";
 import { PostService } from "@service/post";
 import { Service } from "typedi";
-import { JsonController, Body, Get, Post, QueryParam, Param, Delete, Req } from "routing-controllers";
-import { Request } from "express";
+import { JsonController, Body, Get, Post, QueryParam, Param, Delete } from "routing-controllers";
 
 @JsonController()
 @Service()
@@ -12,15 +11,11 @@ export class PostController {
 
   @Post("/")
   async create(@Body() post: PostEntity) {
-    // console.log(post)
-    // console.log(post)
-    // return { sup: "there" }
     return await this.postService.create(post)
   }
 
   @Post("/check")
   async check(@Body() post: PostEntity) {
-    // return user
     return await this.postService.create(post as PostEntity)
   }
 

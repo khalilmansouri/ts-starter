@@ -1,26 +1,15 @@
 
-
-export type HttpRequest = {
-  body: any
-  query: any,
-  params: any,
-  ip: any,
-  method: any,
-  path: any,
-  headers: any
-}
-
-export type HttpResponse = {
-  headers: any,
-  statusCode: number,
-  body: any
-}
+// import "reflect-metadata"
+import { Container } from "typedi";
+import { createExpressServer, useContainer } from "routing-controllers";
+import { PostController } from "@controller/post"
+import { Application } from "express";
+import { Logger } from "@http/middleware/logger"
 
 
 
-export interface Router {
-  GET(path: string, f: (httpRequest: HttpRequest) => Promise<HttpResponse>): void,
-  // POST(path: string, f: (httpRequest: HttpRequest) => Promise<HttpResponse>): void,
-  // PUT(path: string, f: (httpRequest: HttpRequest) => Promise<HttpResponse>): void,
-}
-
+useContainer(Container)
+export const app = createExpressServer({
+  controllers: [PostController],
+  middlewares: [Logger]
+}) as Application
