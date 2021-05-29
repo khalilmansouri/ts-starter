@@ -25,10 +25,14 @@
       ],
       "@http/*": [
         "src/http/*"
+      ],
+      "@dataAccess/*": [
+        "src/dataAccess/*"
       ]
     },
     "sourceMap": true,
-    "target": "es2017",
+    "module": "commonjs",
+    "target": "es6",
     "outDir": "./build",
     "moduleResolution": "node",
     "esModuleInterop": true,

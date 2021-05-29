@@ -1,6 +1,6 @@
 import "reflect-metadata"
 import { Container } from "typedi";
-import { Mongo } from "./dataAccess/mongodb";
+import { Mongo } from "@dataAccess/mongodb";
 import { app } from "@http/index"
 
 
