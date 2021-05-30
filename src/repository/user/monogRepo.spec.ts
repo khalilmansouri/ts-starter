@@ -23,15 +23,15 @@ describe("UserRepository", () => {
 
   it("Insert a User", async () => {
     userRepo = Container.get(UserRepository)
-    let u: Omit<User, "_id"> = new User({ firstName: "John", lastName: "doe", email: "john.doe@yopmail.com" })
+    let u: Omit<User, "_id"> = { firstName: "John", lastName: "doe", email: "john.doe@yopmail.com", createdAt: new Date(), password: "123", roles: ["user"] }
     let inserted = await userRepo.create(u);
     expect(inserted).toBe(true);
 
   })
 
   it("Find a user", async () => {
-    let u1: Omit<User, "_id"> = new User({ firstName: "John", lastName: "doe", email: "john.doe@yopmail.com" })
-    let u2: Omit<User, "_id"> = new User({ firstName: "Lana", lastName: "Jonson", email: "Lana.jonson@yopmail.com" })
+    let u1: Omit<User, "_id"> = { firstName: "John", lastName: "doe", email: "john.doe@yopmail.com", createdAt: new Date(), password: "123", roles: ["user"] }
+    let u2: Omit<User, "_id"> = { firstName: "Lana", lastName: "Jonson", email: "Lana.jonson@yopmail.com", createdAt: new Date(), password: "123", roles: ["user"] }
     let inserted = await userRepo.create(u1);
     expect(inserted).toBe(true);
     inserted = await userRepo.create(u2);
@@ -44,7 +44,7 @@ describe("UserRepository", () => {
   })
 
   it("Find a user by Email", async () => {
-    let u: User = new User({ firstName: "John", lastName: "doe", email: "john.doe@yopmail.com" })
+    let u: User = { firstName: "John", lastName: "doe", email: "john.doe@yopmail.com", createdAt: new Date(), password: "123", roles: ["user"] }
 
     let inserted = await userRepo.create(u);
     expect(inserted).toBe(true);
@@ -57,7 +57,6 @@ describe("UserRepository", () => {
     let user: User = await userRepo.findByEmail(users[0].email)
 
     expect(user.email).toEqual(u.email);
-    expect(user._id).toEqual(u._id);
   })
 })
 

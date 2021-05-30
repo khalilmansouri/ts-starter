@@ -11,7 +11,7 @@ import { accessControl } from "@http/middleware/accessControl"
 
 useContainer(Container)
 export const app = createExpressServer({
-  // authorizationChecker: accessControl,
+  authorizationChecker: accessControl,
   // defaultErrorHandler: false,
   controllers: [PostController, UserController],
   middlewares: [ErrorHander, Logger]

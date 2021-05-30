@@ -1,9 +1,9 @@
 import { User } from "@entity/user";
 import { Service } from "typedi";
 import { UserService } from "@service/user";
-import { singer } from "@http/middleware/jwt"
+import { cipher } from "@http/middleware/jwt"
 import { JsonController, Body, Get, Post, QueryParam, Param, Delete, Authorized, HttpError } from "routing-controllers";
-import { IsEmail } from "class-validator";
+import { isEmail } from "class-validator";
 
 @JsonController("/account")
 @Service()
@@ -14,13 +14,15 @@ export class UserController {
   @Post("/login")
   async login(@Body() { email, password }: { email: string, password: string }) {//@Body() email: string, password: string
 
+    if (!isEmail(email)) throw new HttpError(400, "Wrong email")
+
     let user: User = await this.userService.findByEmail(email)
 
     if (!user) throw new HttpError(400, "User doesn't exist")
 
-    if (user.password !== password) return new HttpError(400, "Wrong password")
+    if (user.password !== password) throw new HttpError(400, "Wrong password")
     else
-      return singer({ email, roles: [] })
+      return cipher({ email, roles: user.roles })
   }
 
   @Post("/signup")
@@ -30,12 +32,11 @@ export class UserController {
 
     if (user) throw new HttpError(400, "Email already exists in our system")
 
-    user = { email, password, createdAt: new Date() }
+    user = { email, password, createdAt: new Date(), roles: ["user"] }
 
     await this.userService.create(user)
 
-    return singer({ email, roles: [] })
-
+    return cipher({ email, roles: ["user"] })
   }
 
 

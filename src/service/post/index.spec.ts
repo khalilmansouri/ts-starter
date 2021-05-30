@@ -1,9 +1,8 @@
-import "reflect-metadata"
+import "reflect-metadata";
 import { Post } from "@entity/post";
-import { PostRepository } from "@src/repository/post"
-import { PostService } from "@service/post/index"
+import { PostRepository } from "@src/repository/post";
+import { PostService } from "@service/post/index";
 import { Container, Service } from "typedi";
-import { mock } from "jest-mock-extended"
 import { Mongo } from "@src/dataAccess/mongodb";
 
 

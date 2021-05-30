@@ -18,11 +18,8 @@ export class User {
   @IsDate()
   createdAt: Date
 
-  constructor({ email, firstName, lastName }: { email?: string, firstName?: string, lastName?: string }) {
-    this.email = email;
-    this.firstName = firstName;
-    this.lastName = lastName
-  }
+
+  roles: string[]
 
 }
 

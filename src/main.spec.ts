@@ -1,8 +1,8 @@
 import "reflect-metadata";
-import { Container } from "typedi"
-import { PostRepository } from "@repository/post"
-import { PostService } from "@service/post";
-import { PostController } from "@controller/post";
+// import { Container } from "typedi"
+// import { PostRepository } from "@repository/post"
+// import { PostService } from "@service/post";
+// import { PostController } from "@controller/post";
 
 
 

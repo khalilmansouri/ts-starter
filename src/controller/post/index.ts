@@ -14,7 +14,7 @@ export class PostController {
     return await this.postService.create(post)
   }
 
-  // @Authorized("admin")
+  @Authorized("user")
   @Get("/")
   async find(@QueryParam("limit") limit: any) {
     return await this.postService.find({})
@@ -22,7 +22,6 @@ export class PostController {
 
   @Get("/:id")
   async findById(@Param("id") id: string) {
-    console.log({ id })
     return await this.postService.findById(id)
   }
 

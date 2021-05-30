@@ -1,9 +1,9 @@
-import "reflect-metadata"
+import "reflect-metadata";
 import { Container } from "typedi";
 
 import { Post } from "@entity/post";
-import { PostRepository } from "@src/repository/post"
-import { PostController } from "@controller/post/index"
+import { PostRepository } from "@src/repository/post";
+import { PostController } from "@controller/post/index";
 import { Mongo } from "@src/dataAccess/mongodb";
 
 
