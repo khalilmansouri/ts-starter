@@ -27,7 +27,9 @@ export class MongoRepo implements IUserRepository {
   }
 
   async findByEmail(email: string) {
-    return await this.model.findOne({ email })
+    let user = await this.model.findOne({ email })
+    user._id = user._id.toString()
+    return user
   }
 
 

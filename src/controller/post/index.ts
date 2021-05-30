@@ -3,7 +3,7 @@ import { PostService } from "@service/post";
 import { Service } from "typedi";
 import { JsonController, Body, Get, Post, QueryParam, Param, Delete, Authorized } from "routing-controllers";
 
-@JsonController()
+@JsonController("/post")
 @Service()
 export class PostController {
 
@@ -14,12 +14,7 @@ export class PostController {
     return await this.postService.create(post)
   }
 
-  @Post("/check")
-  async check(@Body() post: PostEntity) {
-    return await this.postService.create(post as PostEntity)
-  }
-
-  @Authorized("admin")
+  // @Authorized("admin")
   @Get("/")
   async find(@QueryParam("limit") limit: any) {
     return await this.postService.find({})
@@ -27,6 +22,7 @@ export class PostController {
 
   @Get("/:id")
   async findById(@Param("id") id: string) {
+    console.log({ id })
     return await this.postService.findById(id)
   }
 

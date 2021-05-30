@@ -4,7 +4,7 @@ import { LoggerService } from "./logger"
 import { Service } from "typedi";
 
 @Service()
-@Middleware({ type: 'after' })
+@Middleware({ type: 'before' })
 export class ErrorHander implements ExpressErrorMiddlewareInterface {
   constructor(private loggerService: LoggerService) { }
 
@@ -19,10 +19,10 @@ export class ErrorHander implements ExpressErrorMiddlewareInterface {
     if (response.headersSent) {
       return next(error);
     }
-    let code = error.status || 500
-    return response.status(code).json({
-      code,
-      msg: error?.message,
+    let httpCode = error.status || 500
+    response.status(httpCode).json({
+      httpCode,
+      message: error?.message,
     });
   }
 

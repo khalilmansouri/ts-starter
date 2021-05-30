@@ -2,13 +2,13 @@ import { IsDate, IsEmail, IsString } from "class-validator"
 
 
 export class User {
-  _id: string
+  _id?: string
 
   @IsString()
-  firstName: string
+  firstName?: string
 
   @IsString()
-  lastName: string
+  lastName?: string
 
   @IsEmail()
   email: string
