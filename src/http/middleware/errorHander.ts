@@ -1,7 +1,9 @@
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Request, RequestHandler, Response } from "express";
 import {
   Middleware,
-  ExpressErrorMiddlewareInterface
+  ExpressErrorMiddlewareInterface,
+  ExpressMiddlewareInterface,
+  HttpError
 } from "routing-controllers";
 import { LoggerService } from "./logger";
 import { Service } from "typedi";
@@ -12,27 +14,12 @@ export class ErrorHander implements ExpressErrorMiddlewareInterface {
   constructor(private loggerService: LoggerService) {}
 
   error(err: any, request: Request, response: Response, next: NextFunction) {
-    // console.log("1")
-    // this.loggerService.error({
-    //   message: `${request.ip} ${response.statusCode} ${request.method} ${request.url} Internal Server Error`,
-    //   error: error?.message,
-    // })
-    // console.log("2")
-    // // Skip if headers are already sent
-    // // if (response.headersSent) {
-    // //   return next(error);
-    // // }
-    // let httpCode = error.status || 500
-    // return response.status(httpCode).json({
-    //   httpCode,
-    //   message: error?.message,
-    // });
+    const { httpCode = 500, message = "Internal Server Error" } =
+      err || {};
 
-    // // console.log("3")
-    // Logs error
     this.loggerService.error({
-      message: "Internal Server Error",
-      error: err?.message
+      message: `${request.ip} ${httpCode} ${request.method} ${request.url} ${message}`,
+      error: message
     });
 
     // Skip if headers are already sent
@@ -41,9 +28,17 @@ export class ErrorHander implements ExpressErrorMiddlewareInterface {
     }
 
     // return a general error response
-    return response.status(500).json({
-      code: 500,
-      msg: err?.message
+    return response.status(httpCode).json({
+      httpCode,
+      message
     });
   }
+}
+
+@Service()
+@Middleware({ type: "after" })
+export class NotFoundErrorHander implements ExpressMiddlewareInterface {
+  use: RequestHandler = (req, res) => {
+    throw new HttpError(400, "Not Found");
+  };
 }

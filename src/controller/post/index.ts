@@ -9,7 +9,8 @@ import {
   QueryParam,
   Param,
   Delete,
-  Authorized
+  Authorized,
+  HttpError
 } from "routing-controllers";
 
 @JsonController("/post")
@@ -22,7 +23,8 @@ export class PostController {
     return await this.postService.create(post);
   }
 
-  @Authorized("user")
+  // post/23423423/2324
+  // @Authorized("user")
   @Get("/")
   async find(@QueryParam("limit") limit: number) {
     return await this.postService.find({});
