@@ -26,7 +26,7 @@ describe("UserRepository", () => {
       email: "john.doe@yopmail.com",
       createdAt: new Date(),
       password: "123",
-      roles: ["user"]
+      roles: ["user"],
     };
     const inserted = await userRepo.create(u);
     expect(inserted).toBe(true);
@@ -39,7 +39,7 @@ describe("UserRepository", () => {
       email: "john.doe@yopmail.com",
       createdAt: new Date(),
       password: "123",
-      roles: ["user"]
+      roles: ["user"],
     };
     const u2: Omit<User, "_id"> = {
       firstName: "Lana",
@@ -47,7 +47,7 @@ describe("UserRepository", () => {
       email: "Lana.jonson@yopmail.com",
       createdAt: new Date(),
       password: "123",
-      roles: ["user"]
+      roles: ["user"],
     };
     let inserted = await userRepo.create(u1);
     expect(inserted).toBe(true);
@@ -67,7 +67,7 @@ describe("UserRepository", () => {
       email: "john.doe@yopmail.com",
       createdAt: new Date(),
       password: "123",
-      roles: ["user"]
+      roles: ["user"],
     };
 
     const inserted = await userRepo.create(u);

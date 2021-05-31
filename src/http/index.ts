@@ -12,5 +12,5 @@ export const app = createExpressServer({
   authorizationChecker: accessControl,
   defaultErrorHandler: false,
   controllers: [PostController, UserController],
-  middlewares: [NotFoundErrorHander, ErrorHander, Logger]
+  middlewares: [NotFoundErrorHander, ErrorHander, Logger],
 }) as Application;

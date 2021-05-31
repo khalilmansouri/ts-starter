@@ -14,9 +14,9 @@ export class LoggerService {
           format: winston.format.combine(
             winston.format.colorize(),
             winston.format.simple()
-          )
-        })
-      ]
+          ),
+        }),
+      ],
     });
   }
 
@@ -27,28 +27,28 @@ export class LoggerService {
   public info(logInfo: LogObject) {
     this.logger.log("info", logInfo.message, {
       ...logInfo,
-      message: undefined
+      message: undefined,
     });
   }
 
   public error(logInfo: LogObject) {
     this.logger.log("error", logInfo.message, {
       ...logInfo,
-      message: undefined
+      message: undefined,
     });
   }
 
   public debug(logInfo: LogObject) {
     this.logger.log("debug", logInfo.message, {
       ...logInfo,
-      message: undefined
+      message: undefined,
     });
   }
 
   public warn(logInfo: LogObject) {
     this.logger.log("warn", logInfo.message, {
       ...logInfo,
-      message: undefined
+      message: undefined,
     });
   }
 
@@ -78,7 +78,7 @@ export class Logger implements ExpressMiddlewareInterface {
     }
 
     this.loggerService.log(logLevel, {
-      message: `${request.ip} ${response.statusCode} ${request.method} ${request.url}`
+      message: `${request.ip} ${response.statusCode} ${request.method} ${request.url}`,
     });
     next();
   };

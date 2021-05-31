@@ -23,7 +23,7 @@ describe("User Service", () => {
       email: "joe@doe.com",
       password: "123",
       createdAt: new Date(),
-      roles: ["user"]
+      roles: ["user"],
     };
     const inserted = await userService.create(user);
     expect(inserted).toEqual(true);
@@ -35,7 +35,7 @@ describe("User Service", () => {
       email: "joe@doe.com",
       password: "123",
       createdAt: new Date(),
-      roles: ["user"]
+      roles: ["user"],
     };
     const inserted = await userService.create(user);
     expect(inserted).toEqual(true);
@@ -50,7 +50,7 @@ describe("User Service", () => {
       email: "joe@doe.com",
       password: "123",
       createdAt: new Date(),
-      roles: ["user"]
+      roles: ["user"],
     };
     const inserted = await userService.create(user);
     expect(inserted).toEqual(true);

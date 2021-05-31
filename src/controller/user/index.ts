@@ -11,7 +11,7 @@ import {
   Param,
   Delete,
   Authorized,
-  HttpError
+  HttpError,
 } from "routing-controllers";
 import { isEmail } from "class-validator";
 

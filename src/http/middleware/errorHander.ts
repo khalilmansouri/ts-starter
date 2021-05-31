@@ -3,7 +3,7 @@ import {
   Middleware,
   ExpressErrorMiddlewareInterface,
   ExpressMiddlewareInterface,
-  HttpError
+  HttpError,
 } from "routing-controllers";
 import { LoggerService } from "./logger";
 import { Service } from "typedi";
@@ -14,12 +14,11 @@ export class ErrorHander implements ExpressErrorMiddlewareInterface {
   constructor(private loggerService: LoggerService) {}
 
   error(err: any, request: Request, response: Response, next: NextFunction) {
-    const { httpCode = 500, message = "Internal Server Error" } =
-      err || {};
+    const { httpCode = 500, message = "Internal Server Error" } = err || {};
 
     this.loggerService.error({
       message: `${request.ip} ${httpCode} ${request.method} ${request.url} ${message}`,
-      error: message
+      error: message,
     });
 
     // Skip if headers are already sent
@@ -30,7 +29,7 @@ export class ErrorHander implements ExpressErrorMiddlewareInterface {
     // return a general error response
     return response.status(httpCode).json({
       httpCode,
-      message
+      message,
     });
   }
 }
