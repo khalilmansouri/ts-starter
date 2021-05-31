@@ -1,0 +1,41 @@
+// {
+//     "extends": ["plugin:node/recommended"],
+//     "plugins": [],
+//     "rules": {
+//         "no-unused-vars": "warn",
+//         "no-console": "off",
+//         "func-names": "off",
+//         "no-process-exit": "off",
+//         "object-shorthand": "off",
+//         "class-methods-use-this": "off"
+//     }
+// }      
+
+
+{
+    "root": true,
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+      "@typescript-eslint"
+    ],
+    "extends": [
+      "eslint:recommended",
+      "plugin:@typescript-eslint/eslint-recommended",
+      "plugin:@typescript-eslint/recommended"
+    ],
+    "rules": {
+      "semi":"error",
+      "no-unused-vars": "off",
+      "no-console": "off",
+      "func-names": "off",
+      "quotes":"error",
+      "no-process-exit": "off",
+      "object-shorthand": "off",
+      "class-methods-use-this": "off",
+
+      "@typescript-eslint/explicit-function-return-type": "off",
+      "@typescript-eslint/explicit-module-boundary-types": "off",
+      "@typescript-eslint/no-unused-vars":"off",
+      "@typescript-eslint/no-explicit-any":"off"
+    }
+  }

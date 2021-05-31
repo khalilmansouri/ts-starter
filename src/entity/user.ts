@@ -1,4 +1,4 @@
-import { IsDate, IsEmail, IsString } from "class-validator"
+import { IsDate, IsEmail, IsString } from "class-validator";
 
 
 export class User {
@@ -23,5 +23,5 @@ export class User {
 
 }
 
-export default User
+export default User;
 

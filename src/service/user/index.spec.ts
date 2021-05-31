@@ -11,44 +11,44 @@ import { Mongo } from "@src/dataAccess/mongodb";
 describe("User Service", () => {
 
   beforeAll(async () => {
-    await Container.get(Mongo).connect()
+    await Container.get(Mongo).connect();
   });
 
   beforeEach(async () => {
-    await Container.get(UserRepository).remove()
-  })
+    await Container.get(UserRepository).remove();
+  });
   afterAll(async () => {
-    await Container.get(UserRepository).close()
-  })
+    await Container.get(UserRepository).close();
+  });
 
 
   it("Create User", async () => {
-    let userService = Container.get(UserService)
-    let user: User = { email: "joe@doe.com", password: "123", createdAt: new Date(), roles: ["user"] }
-    let inserted = await userService.create(user)
-    expect(inserted).toEqual(true)
+    const userService = Container.get(UserService);
+    const user: User = { email: "joe@doe.com", password: "123", createdAt: new Date(), roles: ["user"] };
+    const inserted = await userService.create(user);
+    expect(inserted).toEqual(true);
 
-  })
+  });
 
   it("find users", async () => {
-    let userService = Container.get(UserService)
-    let user: User = { email: "joe@doe.com", password: "123", createdAt: new Date(), roles: ["user"] }
-    let inserted = await userService.create(user)
-    expect(inserted).toEqual(true)
-    let users = await userService.find()
-    expect(users.length).toEqual(1)
-    expect(users[0].email).toEqual(user.email)
-  })
+    const userService = Container.get(UserService);
+    const user: User = { email: "joe@doe.com", password: "123", createdAt: new Date(), roles: ["user"] };
+    const inserted = await userService.create(user);
+    expect(inserted).toEqual(true);
+    const users = await userService.find();
+    expect(users.length).toEqual(1);
+    expect(users[0].email).toEqual(user.email);
+  });
 
   it("Find user by email", async () => {
-    let userService = Container.get(UserService)
-    let user: User = { email: "joe@doe.com", password: "123", createdAt: new Date(), roles: ["user"] }
-    let inserted = await userService.create(user)
-    expect(inserted).toEqual(true)
-    let foudUser = await userService.findByEmail(user.email)
-    expect(foudUser).toBeDefined()
-    expect(foudUser.email).toEqual(user.email)
-  })
+    const userService = Container.get(UserService);
+    const user: User = { email: "joe@doe.com", password: "123", createdAt: new Date(), roles: ["user"] };
+    const inserted = await userService.create(user);
+    expect(inserted).toEqual(true);
+    const foudUser = await userService.findByEmail(user.email);
+    expect(foudUser).toBeDefined();
+    expect(foudUser.email).toEqual(user.email);
+  });
 
-})
+});
 

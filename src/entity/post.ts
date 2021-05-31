@@ -1,4 +1,4 @@
-import { MaxLength, MinLength } from "class-validator"
+import { MaxLength, MinLength } from "class-validator";
 
 // post Query
 export type PostQuery = {

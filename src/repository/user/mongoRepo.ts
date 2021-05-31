@@ -1,7 +1,7 @@
 import { Mongo } from "@src/dataAccess/mongodb";
-import mongodb from "mongodb"
+import mongodb from "mongodb";
 import User from "@src/entity/user";
-import { IUserRepository } from "./index"
+import { IUserRepository } from "./index";
 import { Service } from "typedi";
 
 @Service()
@@ -11,34 +11,34 @@ export class MongoRepo implements IUserRepository {
   private connection: mongodb.MongoClient;
 
   constructor(mongo: Mongo) {
-    let mongoClient = mongo.getMongoClient()
+    const mongoClient = mongo.getMongoClient();
     this.connection = mongoClient;
-    this.model = mongoClient.db().collection("user")
+    this.model = mongoClient.db().collection("user");
   }
 
 
   async create(user: Omit<User, "_id">) {
-    await this.model.insertOne(user)
-    return true
+    await this.model.insertOne(user);
+    return true;
   }
 
   async find() {
-    return await this.model.find({}).toArray()
+    return await this.model.find({}).toArray();
   }
 
   async findByEmail(email: string) {
-    let user = await this.model.findOne({ email })
-    if (user) user._id = user._id.toString()
-    return user
+    const user = await this.model.findOne({ email });
+    if (user) user._id = user._id.toString();
+    return user;
   }
 
 
   async remove() {
-    return await this.model.deleteMany({})
+    return await this.model.deleteMany({});
   }
 
   async close(): Promise<void> {
-    return await this.connection.close()
+    return await this.connection.close();
   }
 
 }

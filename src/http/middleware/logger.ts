@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Request, Response, RequestHandler } from "express";
 import { ExpressMiddlewareInterface, Middleware } from "routing-controllers";
 import { Service } from "typedi";
 import winston from "winston";
@@ -68,15 +68,17 @@ export class Logger implements ExpressMiddlewareInterface {
   constructor(private loggerService: LoggerService) { }
 
 
-  use(request: Request, response: Response, next: NextFunction) {
+  use: RequestHandler = (request: Request, response: Response, next: NextFunction)=> {
     let logLevel: LogLevel = "info";
-    const { statusCode } = response
-    if (statusCode < 100 && statusCode >= 400) logLevel = "error";
+    const { statusCode } = response;
+    if (statusCode < 100 && statusCode >= 400) {
+      logLevel = "error";
+    }
 
     this.loggerService.log(logLevel, {
       message: `${request.ip} ${response.statusCode} ${request.method} ${request.url}`,
-    })
-    next()
+    });
+    next();
   }
 
 }

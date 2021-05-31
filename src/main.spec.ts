@@ -12,8 +12,8 @@ describe("IoC test", () => {
     // const postService = Container.get(PostService)
     // expect(postService).toBeDefined()
     // console.log(await postService.find({}))
-    expect(true).toEqual(true)
-  })
+    expect(true).toEqual(true);
+  });
 
   // it("Shoud load post controller", async () => {
   //   await Container.get(PostRepository).init()
@@ -22,4 +22,4 @@ describe("IoC test", () => {
   //   console.log(await postController.find())
   //   expect(postController).toBeInstanceOf(PostController)
   // })
-})
+});
