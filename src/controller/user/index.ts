@@ -34,6 +34,7 @@ export class UserController {
 
     user = { email, password, createdAt: new Date(), roles: ["user"] }
 
+
     await this.userService.create(user)
 
     return cipher({ email, roles: ["user"] })

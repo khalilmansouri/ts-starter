@@ -1,7 +1,7 @@
 import { UserRepository } from "@repository/user/";
 import { User } from "@entity/user"
 import { Service } from "typedi";
-import { HttpError } from "routing-controllers";
+
 @Service()
 export class UserService {
 
@@ -14,15 +14,6 @@ export class UserService {
   async find() {
     return await this.userRepo.find()
   }
-
-  // async login(email: string, password: string) {
-  //   let user = await this.findByEmail(email)
-  //   if (!user) return new HttpError(400, "User does'nt exist")
-  //   if (user.password !== password) new HttpError(400, "Wrong password")
-  //   else
-  //     return user
-  // }
-
 
 
   async findByEmail(email: string) {
