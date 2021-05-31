@@ -24,7 +24,7 @@ describe("Post Controller", () => {
     userController = Container.get(UserController);
     const token = await userController.signup({
       email: "jack@berrel.com",
-      password: "123",
+      password: "123"
     });
     expect(token).toBeDefined();
     // const inserted = await postController.create(p);
@@ -35,13 +35,13 @@ describe("Post Controller", () => {
     userController = Container.get(UserController);
     let token = await userController.signup({
       email: "jack@berrel.com",
-      password: "123",
+      password: "123"
     });
     expect(token).toBeDefined();
 
     token = await userController.login({
       email: "jack@berrel.com",
-      password: "123",
+      password: "123"
     });
     expect(token).toBeDefined();
   });

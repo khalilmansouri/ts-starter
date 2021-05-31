@@ -32,7 +32,7 @@ export class Mongo {
 
     this.mongoClient = await mongodb.connect(this.MONGO_DB_URI, {
       useNewUrlParser: true,
-      useUnifiedTopology: true,
+      useUnifiedTopology: true
     });
   }
 
