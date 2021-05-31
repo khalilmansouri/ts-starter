@@ -23,8 +23,7 @@ export class PostController {
     return await this.postService.create(post);
   }
 
-  // post/23423423/2324
-  // @Authorized("user")
+  @Authorized("user")
   @Get("/")
   async find(@QueryParam("limit") limit: number) {
     return await this.postService.find({});

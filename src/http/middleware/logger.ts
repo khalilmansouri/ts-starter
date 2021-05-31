@@ -13,7 +13,7 @@ export class LoggerService {
         new winston.transports.Console({
           format: winston.format.combine(
             winston.format.colorize(),
-            winston.format.simple()
+            winston.format.simple(),
           ),
         }),
       ],
@@ -69,7 +69,7 @@ export class Logger implements ExpressMiddlewareInterface {
   use: RequestHandler = (
     request: Request,
     response: Response,
-    next: NextFunction
+    next: NextFunction,
   ) => {
     let logLevel: LogLevel = "info";
     const { statusCode } = response;

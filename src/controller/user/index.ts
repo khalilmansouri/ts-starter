@@ -22,7 +22,7 @@ export class UserController {
 
   @Post("/login")
   async login(
-    @Body() { email, password }: { email: string; password: string }
+    @Body() { email, password }: { email: string; password: string },
   ) {
     //@Body() email: string, password: string
 
@@ -38,7 +38,7 @@ export class UserController {
 
   @Post("/signup")
   async signup(
-    @Body() { email, password }: { email: string; password: string }
+    @Body() { email, password }: { email: string; password: string },
   ) {
     let user: User = await this.userService.findByEmail(email);
 
