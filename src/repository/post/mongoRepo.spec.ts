@@ -4,8 +4,6 @@ import { Post } from "@entity/post";
 import { PostRepository } from "@repository/post";
 import { Mongo } from "@src/dataAccess/mongodb";
 
-
-
 describe("PostRepository", () => {
   let postRepo: PostRepository;
 
@@ -20,14 +18,11 @@ describe("PostRepository", () => {
     await Container.get(Mongo).disconnect();
   });
 
-
-
   it("Insert a post", async () => {
     postRepo = Container.get(PostRepository);
     const p: Omit<Post, "_id"> = { title: "tt1", text: "txt1" };
     const inserted = await postRepo.create(p);
     expect(inserted).toBe(true);
-
   });
 
   it("Find a post", async () => {
@@ -56,6 +51,4 @@ describe("PostRepository", () => {
     const post: Post = await postRepo.findById(posts[0]._id);
     expect(post.title).toEqual(p.title);
   });
-
 });
-

@@ -6,7 +6,6 @@ import { Service } from "typedi";
 
 @Service()
 export class MongoRepo implements IUserRepository {
-
   private model: mongodb.Collection;
   private connection: mongodb.MongoClient;
 
@@ -15,7 +14,6 @@ export class MongoRepo implements IUserRepository {
     this.connection = mongoClient;
     this.model = mongoClient.db().collection("user");
   }
-
 
   async create(user: Omit<User, "_id">) {
     await this.model.insertOne(user);
@@ -32,7 +30,6 @@ export class MongoRepo implements IUserRepository {
     return user;
   }
 
-
   async remove() {
     return await this.model.deleteMany({});
   }
@@ -40,5 +37,4 @@ export class MongoRepo implements IUserRepository {
   async close(): Promise<void> {
     return await this.connection.close();
   }
-
 }

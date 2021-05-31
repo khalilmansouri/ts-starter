@@ -1,12 +1,15 @@
 import { NextFunction, Request, Response } from "express";
-import { Middleware, ExpressErrorMiddlewareInterface } from "routing-controllers";
+import {
+  Middleware,
+  ExpressErrorMiddlewareInterface
+} from "routing-controllers";
 import { LoggerService } from "./logger";
 import { Service } from "typedi";
 
 @Service()
 @Middleware({ type: "after" })
 export class ErrorHander implements ExpressErrorMiddlewareInterface {
-  constructor(private loggerService: LoggerService) { }
+  constructor(private loggerService: LoggerService) {}
 
   error(err: any, request: Request, response: Response, next: NextFunction) {
     // console.log("1")
@@ -26,22 +29,21 @@ export class ErrorHander implements ExpressErrorMiddlewareInterface {
     // });
 
     // // console.log("3")
-        // Logs error
+    // Logs error
     this.loggerService.error({
       message: "Internal Server Error",
-      error: err?.message,
+      error: err?.message
     });
 
-      // Skip if headers are already sent
-      if (response.headersSent) {
-        return next(err);
-      }
+    // Skip if headers are already sent
+    if (response.headersSent) {
+      return next(err);
+    }
 
     // return a general error response
     return response.status(500).json({
       code: 500,
-      msg: err?.message,
+      msg: err?.message
     });
   }
-
 }

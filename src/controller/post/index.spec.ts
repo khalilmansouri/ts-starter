@@ -6,12 +6,7 @@ import { PostRepository } from "@src/repository/post";
 import { PostController } from "@controller/post/index";
 import { Mongo } from "@src/dataAccess/mongodb";
 
-
-
-
-
 describe("Post Controller", () => {
-
   let postController: PostController;
 
   beforeAll(async () => {
@@ -25,7 +20,6 @@ describe("Post Controller", () => {
     await Container.get(PostRepository).close();
   });
 
-
   it("Init post Controller", () => {
     postController = Container.get(PostController);
     expect(postController).toBeDefined();
@@ -35,7 +29,6 @@ describe("Post Controller", () => {
     const p: Post = { title: "tt1", text: "txt1" };
     const inserted = await postController.create(p);
     expect(inserted).toBe(true);
-
   });
 
   it("Find a posts", async () => {
@@ -70,5 +63,4 @@ describe("Post Controller", () => {
     const post = await postController.findById(posts[0]._id);
     expect(post.title).toEqual(p.title);
   });
-
 });

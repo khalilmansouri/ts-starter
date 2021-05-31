@@ -7,8 +7,6 @@ import { Logger } from "@http/middleware/logger";
 import { ErrorHander } from "@http/middleware/errorHander";
 import { accessControl } from "@http/middleware/accessControl";
 
-
-
 useContainer(Container);
 export const app = createExpressServer({
   authorizationChecker: accessControl,

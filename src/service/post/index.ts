@@ -3,8 +3,7 @@ import { Post, PostQuery } from "@entity/post";
 import { Service } from "typedi";
 @Service()
 export class PostService {
-
-  constructor(private readonly postRepo: PostRepository) { }
+  constructor(private readonly postRepo: PostRepository) {}
 
   async create(post: Post): Promise<boolean> {
     return await this.postRepo.create(post);
@@ -21,5 +20,4 @@ export class PostService {
   async delete() {
     return await this.postRepo.remove();
   }
-
 }

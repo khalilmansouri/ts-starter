@@ -4,13 +4,10 @@ import mongodb, { ObjectId } from "mongodb";
 import { Service } from "typedi";
 import { Mongo } from "@src/dataAccess/mongodb";
 
-
 @Service()
 export class MongoRepo implements IPostRepository {
-
   private model: mongodb.Collection;
   private connection: mongodb.MongoClient;
-
 
   constructor(mongo: Mongo) {
     const mongoClient = mongo.getMongoClient();
@@ -40,7 +37,9 @@ export class MongoRepo implements IPostRepository {
 
   async find(query: PostQuery): Promise<Post[]> {
     const posts = await this.model.find(query).toArray();
-    return posts.map(post => { return { ...post, _id: post._id.toString() }; });
+    return posts.map((post) => {
+      return { ...post, _id: post._id.toString() };
+    });
   }
 
   async remove() {
@@ -52,7 +51,4 @@ export class MongoRepo implements IPostRepository {
     post._id = post._id.toString();
     return post;
   }
-
 }
-
-

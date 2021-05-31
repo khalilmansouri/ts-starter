@@ -5,9 +5,6 @@ import { PostService } from "@service/post/index";
 import { Container, Service } from "typedi";
 import { Mongo } from "@src/dataAccess/mongodb";
 
-
-
-
 describe("Post Service", () => {
   // let postRepo: PostRepository;
   let postService: PostService;
@@ -22,7 +19,6 @@ describe("Post Service", () => {
   afterAll(async () => {
     await Container.get(PostRepository).close();
   });
-
 
   it("Init post service", () => {
     // const mockedPostRepo = mock<PostRepository>();
@@ -67,6 +63,4 @@ describe("Post Service", () => {
     const post: Post = await postService.findById(posts[0]._id);
     expect(post.title).toEqual(p.title);
   });
-
 });
-

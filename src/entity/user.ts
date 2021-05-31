@@ -1,27 +1,23 @@
 import { IsDate, IsEmail, IsString } from "class-validator";
 
-
 export class User {
-  _id?: string
+  _id?: string;
 
   @IsString()
-  firstName?: string
+  firstName?: string;
 
   @IsString()
-  lastName?: string
+  lastName?: string;
 
   @IsEmail()
-  email: string
+  email: string;
 
-  password: string
+  password: string;
 
   @IsDate()
-  createdAt: Date
+  createdAt: Date;
 
-
-  roles: string[]
-
+  roles: string[];
 }
 
 export default User;
-

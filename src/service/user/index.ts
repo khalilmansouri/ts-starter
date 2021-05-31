@@ -4,8 +4,7 @@ import { Service } from "typedi";
 
 @Service()
 export class UserService {
-
-  constructor(private readonly userRepo: UserRepository) { }
+  constructor(private readonly userRepo: UserRepository) {}
 
   async create(user: User): Promise<boolean> {
     return await this.userRepo.create(user);
@@ -15,7 +14,6 @@ export class UserService {
     return await this.userRepo.find();
   }
 
-
   async findByEmail(email: string) {
     return await this.userRepo.findByEmail(email);
   }
@@ -23,5 +21,4 @@ export class UserService {
   async delete() {
     return await this.userRepo.remove();
   }
-
 }

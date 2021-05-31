@@ -1,13 +1,21 @@
 import { Post as PostEntity } from "@entity/post";
 import { PostService } from "@service/post";
 import { Service } from "typedi";
-import { JsonController, Body, Get, Post, QueryParam, Param, Delete, Authorized } from "routing-controllers";
+import {
+  JsonController,
+  Body,
+  Get,
+  Post,
+  QueryParam,
+  Param,
+  Delete,
+  Authorized
+} from "routing-controllers";
 
 @JsonController("/post")
 @Service()
 export class PostController {
-
-  constructor(private readonly postService: PostService) { }
+  constructor(private readonly postService: PostService) {}
 
   @Post("/")
   async create(@Body() post: PostEntity): Promise<boolean> {

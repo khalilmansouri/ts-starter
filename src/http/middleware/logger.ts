@@ -13,10 +13,10 @@ export class LoggerService {
         new winston.transports.Console({
           format: winston.format.combine(
             winston.format.colorize(),
-            winston.format.simple(),
-          ),
-        }),
-      ],
+            winston.format.simple()
+          )
+        })
+      ]
     });
   }
 
@@ -27,28 +27,28 @@ export class LoggerService {
   public info(logInfo: LogObject) {
     this.logger.log("info", logInfo.message, {
       ...logInfo,
-      message: undefined,
+      message: undefined
     });
   }
 
   public error(logInfo: LogObject) {
     this.logger.log("error", logInfo.message, {
       ...logInfo,
-      message: undefined,
+      message: undefined
     });
   }
 
   public debug(logInfo: LogObject) {
     this.logger.log("debug", logInfo.message, {
       ...logInfo,
-      message: undefined,
+      message: undefined
     });
   }
 
   public warn(logInfo: LogObject) {
     this.logger.log("warn", logInfo.message, {
       ...logInfo,
-      message: undefined,
+      message: undefined
     });
   }
 
@@ -64,11 +64,13 @@ type LogObject = {
 @Service()
 @Middleware({ type: "after" })
 export class Logger implements ExpressMiddlewareInterface {
+  constructor(private loggerService: LoggerService) {}
 
-  constructor(private loggerService: LoggerService) { }
-
-
-  use: RequestHandler = (request: Request, response: Response, next: NextFunction)=> {
+  use: RequestHandler = (
+    request: Request,
+    response: Response,
+    next: NextFunction
+  ) => {
     let logLevel: LogLevel = "info";
     const { statusCode } = response;
     if (statusCode < 100 && statusCode >= 400) {
@@ -76,13 +78,8 @@ export class Logger implements ExpressMiddlewareInterface {
     }
 
     this.loggerService.log(logLevel, {
-      message: `${request.ip} ${response.statusCode} ${request.method} ${request.url}`,
+      message: `${request.ip} ${response.statusCode} ${request.method} ${request.url}`
     });
     next();
-  }
-
+  };
 }
-
-
-
-

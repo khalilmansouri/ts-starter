@@ -4,10 +4,7 @@ import "reflect-metadata";
 // import { PostService } from "@service/post";
 // import { PostController } from "@controller/post";
 
-
-
 describe("IoC test", () => {
-
   it("Shoud load post service", () => {
     // const postService = Container.get(PostService)
     // expect(postService).toBeDefined()
