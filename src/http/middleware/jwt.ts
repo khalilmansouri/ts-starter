@@ -1,7 +1,7 @@
 import { Service } from "typedi";
 
 import jsonWebToken from "jsonwebtoken";
-type Payload = {
+export type Payload = {
   email: string;
   roles: string[];
 };
