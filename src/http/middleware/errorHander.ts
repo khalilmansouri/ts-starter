@@ -38,6 +38,6 @@ export class ErrorHander implements ExpressErrorMiddlewareInterface {
 @Middleware({ type: "after" })
 export class NotFoundErrorHander implements ExpressMiddlewareInterface {
   use: RequestHandler = (req, res) => {
-    throw new HttpError(400, "Not Found");
+    throw new HttpError(404, "Not Found");
   };
 }
